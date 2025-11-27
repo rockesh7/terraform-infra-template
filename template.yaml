@@ -28,6 +28,14 @@ spec:
           type: string
           title: S3 Bucket Name
           description: Globally unique S3 bucket name
+        aws_key_id:
+          type: string
+          title: AWS Secret Key ID
+          description: Secret Key ID of your IAM
+        aws_key_secret:
+          type: string
+          title: AWS Secret Key
+          description: Secret Key of your IAM
 
   steps:
     - id: fetch
@@ -40,6 +48,8 @@ spec:
           aws_region: ${{ parameters.aws_region }}
           vpc_cidr: ${{ parameters.vpc_cidr }}
           s3_bucket_name: ${{ parameters.s3_bucket_name }}
+          aws_key_id: ${{ parameters.aws_key_id }}
+          aws_key_secret: ${{ parameters.aws_key_secret }}
 
     - id: publish
       name: Publish to GitHub
