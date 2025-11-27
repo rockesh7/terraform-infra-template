@@ -8,17 +8,15 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: ${{ values.aws_region }}
     steps:
-      - name: Verify AWS credentials
-        run: |
-          echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
-
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::891377046325:role/Backstage-Terraform-Role-gh
+          aws-region: us-east-1  # or your region
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
